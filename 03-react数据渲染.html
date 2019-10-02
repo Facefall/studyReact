@@ -40,14 +40,22 @@
                     }
                 </ul>
                 <p>
-                    {arr /*会自动展开*/}
+                    {arr /*
+                    大括号相当于map方法
+                    会自动展开所有元素
+
+                        如果是同tag元素,则需要不同的给定不同的key
+                        key为虚拟dom在判定渲染元素的标识
+                    */}
                 </p>
                 <h3>
                     {
                         //JSON对象通过以下两种方法能直接输出
                         // JSON.stringify(person)
                         //Object.keys(person)
+                        //
                     }
+
                 </h3>
 
                 <p>
