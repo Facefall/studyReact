@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app">
+
+    </div>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        //声明有状态的组件
+        //继承react框架下的组件类
+        class Head extends React.Component{
+            constructor(){
+                super();    //执行父类的构造函数
+                this.age = 18;
+                this.name = '海绵宝宝';
+            }
+            //定义函数方法
+            say(){
+                console.log("say方法");
+            }
+            //继承自react,自带的渲染方法
+            render(){
+                return (
+                    <header> 这是有状态的组件</header>
+                )
+            }
+        }
+        let element = (
+            <div>
+                <hr/>
+                <Head></Head>
+                <hr/>
+            </div>
+        );
+        ReactDOM.render(
+            element,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>
