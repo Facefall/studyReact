@@ -18,6 +18,9 @@
         //继承react框架下的组件类
         class Head extends React.Component{
             constructor(){
+                //super 有两种用法
+                //第一种 作为父类的构造函数执行   this.props
+                //第二种:父类对象
                 super(...arguments);    //传入参数
                 // super()
                 this.age = 18;
@@ -40,18 +43,27 @@
                     },2000);
 
             }
+            state = {
+                abc : this.props.text
+            };
             handleClick(){
                 // console.log(this); 此处this1为undefined
                 //要修改函数内部的this指向
                 //bind绑定
+                console.log(this);
             }
             handleClick3 = () =>{
                 // this.state.abc = "重新赋值";不能重新赋值
                 this.setState({
-                    abc:'重新赋值'
+                    abc:'第三种赋值'
                 })
             };
-
+            //第四种方法
+            handleClick4(){
+                this.setState({
+                    abc:'第四种方式赋值'
+                })
+            }
             //箭头函数,内部没有this,
             //this指向父级对象,或者说是上下文对象
             //定义函数方法
@@ -64,9 +76,11 @@
             render(){
                 return (
                     <div>
-                    <header onClick={this.handleClick.bind(this)}>{this.state.abc && this.state.abc}</header>
-                    <header onClick={this.handleClick}>{this.state.abc && this.state.abc}</header>
-                    <header onClick={this.handleClick3}>{this.state.abc && this.state.abc}</header>
+                        <header onClick={this.handleClick.bind(this)}>{this.state.abc && this.state.abc}</header>
+                        <header onClick={this.handleClick}>{this.state.abc && this.state.abc}</header>
+                        <header onClick={this.handleClick3}>{this.state.abc && this.state.abc}</header>
+                        { /*函数的第一个对象是event对象 拿到被点击的对象,比如input控件*/}
+                        <header onClick={(event)=>{this.handleClick4()}}>{this.state.abc && this.state.abc}</header>
                     </div>
                 )
             }
