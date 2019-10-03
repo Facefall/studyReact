@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        let arr = ['海绵','宝宝','派大星','章鱼哥','蟹老板'];
+        let person = {
+            name : "海绵宝宝",
+            age : 18,
+            sex : 1
+        };
+        let element = (
+            <div>
+                <h2>姓名:{person.name}</h2>
+                <h2>年龄:{person.age}</h2>
+                <h2>
+                    性别:{person.sex?'男':"女"}
+                    {/*不能写if判断*/}
+                </h2>
+                <h2>
+
+                </h2>
+                <ul>
+                    {
+                        arr.length > 0 && arr.map((item,index)=>{
+                            return (
+                            <li key={index}>
+                                {item}
+                            </li>
+                        )})
+                    }
+                </ul>
+                <p>
+                    {arr /*
+                    大括号相当于map方法
+                    会自动展开所有元素
+
+                        如果是同tag元素,则需要不同的给定不同的key
+                        key为虚拟dom在判定渲染元素的标识
+                    */}
+                </p>
+                <h3>
+                    {
+                        //JSON对象通过以下两种方法能直接输出
+                        // JSON.stringify(person)
+                        //Object.keys(person)
+                        //
+                    }
+
+                </h3>
+
+                <p>
+                </p>
+            </div>
+        );
+        ReactDOM.render(
+            element,
+            app
+        )
+    </script>
+    </body>
+</html>

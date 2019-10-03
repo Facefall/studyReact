@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        //操作dom
+
+        // const styles = {
+        //     container:{
+        //         color:'red'
+        //     },
+        //     subTitle:{
+        //         background:'hotpink'
+        //     }
+        // };
+
+        // const element = (
+        //     <div>
+        //         <h1>Hello world</h1>
+        //         <div>div</div>
+        //         <input
+        //             /*ref={'btn'}      不能这么写,这个input不是react组件 */
+        //             type="button" />
+        //     </div>
+        // );
+
+        function handleClick(e) {
+
+            // let ipt = document.getElementsByTagName("input")[0];
+            // ipt.style.backgroundColor = 'hotpink';
+
+
+            // console.log(e);
+            // let {target} = e;
+            // console.log(target);
+            // target.style.backgroundColor = "green";
+
+            //获取真实的dom节点 而不是虚拟dom
+            //用ref属性
+            console.log(this.refs.btn);
+             this.refs.btn.style = 'white';
+        }
+
+        class List extends React.Component{
+            render() {
+                return (
+                    <div>
+                        List
+                    </div>
+                );
+            }
+        }
+
+        class Elements extends React.Component{
+            handleClick(){
+
+                console.log(this);
+
+                // let ipt = document.getElementsByTagName("input")[0];
+
+                // console.log(this.refs.btn);
+
+                // ReactDOM.findDOMNode(ipt).style.backgroundColor='purple';
+                /*
+                * 虚拟dom
+                * 在与真实dom对比,发现不同的时候才会更新 插入文档
+                * 通过diff算法
+                * 进行节点的比较
+                *
+                * 只有在插入文档后,虚拟dom中的节点才会变成真实dom节点
+                *
+                *
+                * 大多数情况下,应该使用DOM的固定引用,而非使用findDOMNode方法
+                * 当render返回null时,findDOMNode方法也会返回null
+                * findDOMNode方法 当参数是DOM时,返回是相应DOM
+                *                当参数是Component时,返回值是组件的render的返回值
+                * */
+            }
+            render() {
+                return (
+                    <div>
+                        <h1>Hello world</h1>
+
+                        <div
+                            ref={item=>this._div=item}
+                        >div</div>
+
+                        <br />
+                        {/*List是组件*/}
+
+                        <List
+                            ref={List=>this._list=List}
+                        ></List>
+
+                        <br />
+                        <input
+                                /*不推荐使用字符串赋值ref,
+                                推荐使用函数,挂载到this对象上*/
+                            ref={'btn'}
+                            defaultValue="操作dom"
+                            /*onClick={handleClick}*/
+                                onClick={this.handleClick.bind(this)}
+                            type="button" />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Elements />,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>

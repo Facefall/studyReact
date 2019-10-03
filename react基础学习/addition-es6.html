@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <script type="module">
+        //从es6.js里接受默认导出的东西 名字为abc
+        //如果想拿到其他导出数据,解构
+        //import abc from './es6.js';
+        import  {getDate,title,arr,json} from "./es6.js";
+
+        console.log(getDate(),title,arr,json);
+        //console.log(abc);
+    </script>
+    </body>
+</html>

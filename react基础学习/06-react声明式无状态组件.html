@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        {/*一下只能算是变量,常亮,不是组件*/}
+        const hd = (
+            <header>这是头部</header>
+        );
+        const main = (
+            <main>这是页面主题内容</main>
+        );
+        const footer = (
+            <footer>这是页面底部</footer>
+        );
+
+
+        {/*=========================================*/}
+        function Header(data = '这是页面头部'){
+            return (
+                <header>{data}</header>
+            )
+        }
+        //这就是无状态组件的声明
+        //可以直接当做标签使用
+        //注意要首字母大写
+        function Main(){
+            return (
+                <main>这是页面主体</main>
+            )
+        }
+
+
+
+
+        let element = (
+            <div>
+                {hd}
+                {main}
+                {footer}
+                <br/>
+                {/*<Header></Header> 不能写header*/}
+                <Main></Main>
+            </div>
+        );
+        ReactDOM.render(
+            element,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>

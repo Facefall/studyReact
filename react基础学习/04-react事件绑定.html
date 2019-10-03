@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app">
+
+    </div>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+
+        function handleClick(data,e){
+            console.log(
+                data,
+                e.target,
+                this
+            );
+
+        }
+
+        let element =(
+            <div>
+                <input type="button"
+                       defaultValue="自执行"
+                       onClick={alert('自执行')}/>
+                <br/>
+
+                <input type="button"
+                       defaultValue="函数"
+                       onClick={()=>{alert("箭头函数")}} />
+
+                <br/>
+                {/*传参方法 参数调用*/}
+                <input type="button"
+                       defaultValue="事件调用函数"
+                       onClick={handleClick.bind({},"传参")} />
+                {/*                    bind(this,"传参")  只要第一个参数为=位置有占位就行    */}
+            </div>
+        );
+        // import  "./node_modules/react-dom/umd/react-dom.development";
+
+        ReactDOM.render(
+            element,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>
