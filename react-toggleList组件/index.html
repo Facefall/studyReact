@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            h2{
+                background-color: #d8d8d8;
+            }
+            ol{
+                background-color: #5ca0ff;
+            }
+            li{
+                background-color: #fa9d9d;
+            }
+            p{
+                border-bottom: 2px solid #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="../node_modules/babel-standalone/babel.js"></script>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="./data.js"></script>
+    <script type="text/babel">
+
+        class App extends React.Component{
+
+            state = {
+                arr:[true,true]
+            };
+            static getData(){
+                return data
+            }
+            handleClick = (index) => {
+                let arr = this.state.arr;
+                 arr[index] = !this.state.arr[index];
+                this.setState({
+                    arr:arr
+                });
+
+            };
+
+            render() {
+                const data = this.getData();
+                return (
+                        <div>
+                            {
+                                Object.keys(data).map((item,index)=>{
+                                        return (
+                                        <div key={index}>
+                                            <h2 onClick={this.handleClick.bind(this,index)}>{data[item].name}</h2>
+                                            {
+                                                this.state.arr[index] && (
+                                                    <ol>
+                                                        {
+                                                            data[item]["list"].map((item,index)=>{
+                                                                return (
+                                                                    <li key={item.id}>
+                                                                        <p>{item.name}</p>
+                                                                        <p>{item.intro}</p>
+                                                                    </li>
+                                                                )
+                                                            })
+                                                        }
+                                                    </ol>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App/>,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>
