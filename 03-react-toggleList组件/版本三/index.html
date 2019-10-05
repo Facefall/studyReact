@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="../../node_modules/babel-standalone/babel.js"></script>
+    <script src="../../node_modules/react/umd/react.development.js"></script>
+    <script src="../../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="data3.js"></script>
+    <script type="text/babel">
+        //单击其中一个list,其他list组件全部收缩
+        class Content extends React.Component{
+            constructor(props) {
+                super(props);
+                this.state = {
+                    onOff:this.props.show
+                }
+            }
+
+            handleClick = ()=>{
+                let onOff = !this.state.onOff;
+                this.setState({
+                    onOff
+                });
+            };
+
+            shouldComponentUpdate(nextProps, nextState) {
+                // console.log(nextProps, nextState);
+                if (nextProps.show !== nextState.onOff) {
+                    nextState.onOff = nextProps.show;
+                    return true;
+                }
+                return false;
+            }
+
+            render() {
+                let {name,list} = this.props;
+                // console.log(this.props);
+                return (
+                    <div key={this.props.index}>
+                        <h2 onClick={()=>{this.props.handleChange(this.props.index)}}>{name}</h2>
+                        {
+                            this.state.onOff && (
+                                <ol>
+                                    {
+                                        list.map((item,index)=>{
+                                            return (
+                                                <li key={item.id}>
+                                                    <p>{item["name"]}</p>
+                                                    <p>{item["intro"]}</p>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ol>
+                            )
+                        }
+                    </div>
+                );
+            }
+        }
+
+        class App extends React.Component{
+            state = {
+              arr : [true,false,false]
+            };
+            getData = ()=>{
+                return data
+            };
+            handleClick(i){
+                const arr = this.state.arr.map((item,index)=>{
+                    console.log(index,i);
+                    if (index == i)  return true;
+                    return  false;
+                });
+                console.log(arr);
+                this.setState({
+                    arr
+                });
+
+            };
+
+
+
+            render() {
+                let data = this.getData();
+                return (
+                    <div>
+                        {
+                            Object.keys(data).map((item,index)=>{
+                                return (
+                                    <Content
+                                        show = {this.state.arr[index]}
+                                        handleChange={this.handleClick.bind(this)}
+                                        key = {index}
+                                        index = {index}
+                                        {...data[item]}
+                                    ></Content>
+                                )
+                            })
+                        }
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App/>,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>
