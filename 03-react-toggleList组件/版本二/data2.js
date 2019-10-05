@@ -1,4 +1,4 @@
-data = {
+    let data = {
     "study":{
         "name":"前端",
         "list":[

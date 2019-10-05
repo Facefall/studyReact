@@ -7,24 +7,92 @@
         <title>Title</title>
     </head>
     <body>
+    <div id="app"></div>
     <script src="../../node_modules/babel-standalone/babel.js"></script>
     <script src="../../node_modules/react/umd/react.development.js"></script>
     <script src="../../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="data2.js"></script>
     <script type="text/babel">
-        class App extends React.component{
+        class Content extends React.Component{
+            constructor(props) {
+                super(props);
+                this.state = {
+                    onOff:this.props.show
+                }
+            }
 
+            handleClick = ()=>{
+                let onOff = !this.state.onOff;
+                this.setState({
+                    onOff
+                });
+            };
             render() {
+                let {name,list} = this.props;
+                // console.log(this.props);
+                console.log(this.state,this.props.show);
+                return (
+                    <div key={this.props.keys}>
+                        <h2 onClick={this.handleClick}>{name}</h2>
+                        {
+                            this.state.onOff && (
+                                <ol>
+                                    {
+                                        list.map((item,index)=>{
+                                            return (
+                                                <li key={item.id}>
+                                                    <p>{item["name"]}</p>
+                                                    <p>{item["intro"]}</p>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ol>
+                            )
+                        }
+                    </div>
+                );
+            }
+        }
+
+        class App extends React.Component{
+            state = {
+              arr : [true,false]
+            };
+            getData = ()=>{
+                return data
+            };
+            handleClick(index){
+                let arr = this.state.arr;
+                arr[index] = !this.state.arr[index];
+                this.setState({
+                    arr:arr
+                });
+            };
+            render() {
+                let data = this.getData();
                 return (
                     <div>
-
+                        {
+                            Object.keys(data).map((item,index)=>{
+                                return (
+                                    <Content
+                                        show = {this.state.arr[index]}
+                                        key = {index}
+                                        {...data[item]}
+                                    ></Content>
+                                )
+                            })
+                        }
                     </div>
                 );
             }
         }
 
         ReactDOM.render(
-
-        )
+            <App/>,
+            document.querySelector("#app")
+        );
     </script>
     </body>
 </html>
