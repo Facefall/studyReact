@@ -80,9 +80,10 @@
                 *
                 *
                 * 大多数情况下,应该使用DOM的固定引用,而非使用findDOMNode方法
-                * 当render返回null时,findDOMNode方法也会返回null
+                *
                 * findDOMNode方法 当参数是DOM时,返回是相应DOM
                 *                当参数是Component时,返回值是组件的render的返回值
+                *                 * 当render返回null时,findDOMNode方法也会返回null
                 * */
             }
             render() {

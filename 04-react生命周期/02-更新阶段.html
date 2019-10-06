@@ -74,6 +74,12 @@
             console.log("List组件已经被挂载",this.props);
         }
 
+        handleClick = ()=>{
+            console.log("handleClick");
+            this.setState({
+                a:"点击事件"
+            })
+        };
 
         render() {
             console.log("list即将渲染");
@@ -82,6 +88,7 @@
                     <h2>List子组件</h2>
                     <h2>{this.props.p}</h2>
                     {this.state.p}
+                    <button onClick={this.handleClick}>点击事件</button>
                 </div>
             );
         }
@@ -90,7 +97,7 @@
         //才会触发componentDidUpdate函数
         //参数为更新之前的数据
         componentDidUpdate(prevProps, prevState) {
-            console.log("23");
+            // console.log("23");
             console.log(prevProps, prevState);
         }
 
