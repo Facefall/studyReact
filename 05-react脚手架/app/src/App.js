@@ -28,7 +28,6 @@ class App extends Component {
                         {/*
                             图片引入
                             使用require
-
                         */}
                         <a
                             className="App-link"
