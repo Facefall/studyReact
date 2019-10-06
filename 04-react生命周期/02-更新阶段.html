@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+    <meta http-equiv="x-ua-compatible" content="ie-edge">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .list{
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="../node_modules/babel-standalone/babel.js"></script>
+<script src="../node_modules/react/umd/react.development.js"></script>
+<script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    //父组件的数据有跟新
+    //子组件componentWillReceiveProps函数会自动触发
+    //拿到父组件更新之后携带过来的数据
+
+    class List extends React.Component {
+        constructor(props, context) {
+            super(props, context);
+            this.state = {
+                p : this.props.p
+            };
+            // console.log(props,context);
+            //父组件在渲染时将参数传入子组件,子组件构造函数传入这些props
+            console.log("List-构造函数",props);
+        }
+        //父组件更新会触发子组件该函数
+        //nextProps为父组件更新时携带过来的数据
+        //和shouldComponentUpdate不同
+        //不会触发render函数
+        //不会获取当前数据
+        //nextState
+        //给我的感觉是 高优先级的必定实时更新,不需要对比
+        componentWillReceiveProps(nextProps) {
+            this.setState({
+                p:nextProps.p
+            });
+            console.log("List02-获取父组件更新时带来的数据componentWillReceiveProps",nextProps);
+        }
+
+        //默认返回true
+        //能检测到父组件传来的数据,以及子组件自身的数据
+        //nextProps为父组件传来的数据
+        //nextState为子组件的数据
+        //componentWillReceiveProps 在 shouldComponentUpdate之前执行
+
+        //componentWillReceiveProps如果setState更新状态了,因为该函数是异步的
+        //所以会存在延时,此时nextState为更新后的值,this.state是原来的值
+        //在延时一段时间之后,this.state再次获取会进行更新
+        shouldComponentUpdate(nextProps, nextState) {//是否更新组件
+            console.log("List02-是否将要更新组件shouldComponentUpdate");
+            console.log("nextProps:",nextProps,"  |nextState:",nextState,"   |this.state:",this.state);
+
+            //异步操作
+            setTimeout(()=>{
+                console.log("this.state:",this.state);
+            },2000);
+            return true
+        }
+
+
+        componentWillMount() {
+            console.log("List组件将被挂载",this.props);
+        }
+
+        componentDidMount() {
+            console.log("List组件已经被挂载",this.props);
+        }
+
+
+        render() {
+            console.log("list即将渲染");
+            return (
+                <div className="list">
+                    <h2>List子组件</h2>
+                    <h2>{this.props.p}</h2>
+                    {this.state.p}
+                </div>
+            );
+        }
+
+        //shouldComponentUpdate 返回true 重新触发render函数之后
+        //才会触发componentDidUpdate函数
+        //参数为更新之前的数据
+        componentDidUpdate(prevProps, prevState) {
+            console.log("23");
+            console.log(prevProps, prevState);
+        }
+
+    }
+
+
+    class App extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                p : "父组件初始数据"
+            };
+            console.log("App01-构造函数");
+        }
+
+        componentWillMount() {
+            console.log("App02-componentWillMount时间点-组件将被挂载");
+        }
+
+        componentDidMount() {
+            console.log("App04-组件挂载完成");
+        }
+
+        handleClick = ()=>{
+            this.setState({
+                p:"更新父组件数据"
+            })
+        };
+
+        render() {
+            console.log("App03-组件开始渲染");
+            return (
+                <div>
+                    <h1 ref="h1">App</h1>
+                    <List p={this.state.p} />
+                    <br />
+                    <button type="button"   onClick={this.handleClick} >父组件数据更新</button>
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(
+        <App />,
+        document.querySelector("#app")
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta name="viewpoint" content="width-device-width,initial-scale-1.0">
+        <meta http-equiv="x-ua-compatible" content="ie-edge">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <div id="app"></div>
+    <script src="../node_modules/babel-standalone/babel.js"></script>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        class App extends React.Component{
+            constructor(props) {
+                super(props);
+                this.state = {
+                    a: props.title
+                };
+                console.log("第一阶段01-构造函数");
+                // console.log(this.state.a);
+                // console.log(props.title);
+            }
+            //组件将要被挂载到dom节点之前
+            //此时通过ref获取不到节点
+            componentWillMount() {
+                // console.log(this.refs);
+                // console.log(this);
+                // console.log(this.refs);
+                //refs中无元素
+                console.log("第一阶段02-componentWillMount时间点-组件将被挂载");
+
+                this.setState({
+                    c:"请求数据"
+                });
+                // console.log(this.state.c);//请求不到
+                //延时两秒之后,再次尝试获取数据 可以取得
+                //说明 setState是异步操作,同样this.state,this.props均是异步
+                // setTimeout(()=>{
+                //     console.log(this.state.c)
+                // },2000)
+            }
+            //在组件已经被挂载完成的阶段,可以获取dom节点
+            //this.refs.balabala
+            componentDidMount() {
+                console.log("第一阶段04-组件挂载完成");
+                //在这个阶段通过ajax请求后端数据
+                //数据放在state里
+                //响应式数据
+                //一旦stat发生改变
+                //自动触发render函数进行渲染
+            }
+            // shouldComponentUpdate(nextProps, nextState) {
+            //
+            // }
+            //
+            //
+
+            //
+            // componentWillReceiveProps(nextProps) {
+            //
+            // }
+            //
+            // componentWillUpdate(nextProps, nextState) {
+            //
+            // }
+            //
+            // componentDidUpdate(prevProps, prevState) {
+            //
+            // }
+            //
+            //
+            // componentWillUnmount() {
+            //
+            // }
+            //
+            // componentDidCatch(error, info) {
+            //
+            // }
+
+
+
+            render() {
+                console.log("第一阶段03-组件开始渲染");
+                return (
+                    <div>
+                        <h1
+
+                            ref="h1">App</h1>
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <App title={"标题"} />,
+            document.querySelector("#app")
+        );
+    </script>
+    </body>
+</html>
