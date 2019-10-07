@@ -33,16 +33,23 @@
         }
         //父组件更新会触发子组件该函数
         //nextProps为父组件更新时携带过来的数据
+        //
         //和shouldComponentUpdate不同
         //不会触发render函数
         //不会获取当前数据
         //nextState
         //给我的感觉是 高优先级的必定实时更新,不需要对比
+
+        //父组件更新触发componentWillReceiveProps和和shouldComponentUpdate函数
+        //再通过这两个函数判断是否触发render函数,重新渲染
         componentWillReceiveProps(nextProps) {
             this.setState({
-                p:nextProps.p
+                p:nextProps.p,
+                kk:'asd'
             });
-            console.log("List02-获取父组件更新时带来的数据componentWillReceiveProps",nextProps);
+            console.log("List02-获取父组件更新时带来的数据componentWillReceiveProps",nextProps,this.state);
+            //此时的state虽然还没有更新
+            //但是在render函数里,state是会更新的
         }
 
         //默认返回true
@@ -58,13 +65,33 @@
             console.log("List02-是否将要更新组件shouldComponentUpdate");
             console.log("nextProps:",nextProps,"  |nextState:",nextState,"   |this.state:",this.state);
 
-            //异步操作
-            setTimeout(()=>{
-                console.log("this.state:",this.state);
-            },2000);
+            // //异步操作
+            // setTimeout(()=>{
+            //     console.log("this.state:",this.state);
+            // },2000);
             return true
         }
 
+        //render函数前,即将执行render函数时props和state的状态,再
+        //执行完该函数之后,props和state会更新,确保render函数中的state和props是最新的
+        componentWillUpdate(nextProps, nextState) {
+            // this.setState({
+            //    tmp:'23'
+            // });???发生了什么
+            // this.setState({
+            //     p:nextProps.p,
+            //     kk:'asd',
+            //     tmp:'23'
+            // });
+            //当该函数执行完之后
+            //list组件立马执行render函数
+            //而setState是异步操作
+            //有延迟
+            //
+            //在render函数执行过程中,触发了组件更新函数
+            //shouldComponentUpdate 以及componentWillUpdate
+            console.log(nextProps, nextState,this.state);
+        }
 
         componentWillMount() {
             console.log("List组件将被挂载",this.props);
@@ -82,24 +109,29 @@
         };
 
         render() {
-            console.log("list即将渲染");
+            console.log("list即将渲染",this.state,this.props);
+
             return (
                 <div className="list">
                     <h2>List子组件</h2>
                     <h2>{this.props.p}</h2>
                     {this.state.p}
                     <button onClick={this.handleClick}>点击事件</button>
+                    {
+                        console.log( "list即将渲染完毕")
+                    }
                 </div>
+
             );
         }
 
         //shouldComponentUpdate 返回true 重新触发render函数之后
         //才会触发componentDidUpdate函数
         //参数为更新之前的数据
-        componentDidUpdate(prevProps, prevState) {
+        // componentDidUpdate(prevProps, prevState) {
             // console.log("23");
-            console.log(prevProps, prevState);
-        }
+            // console.log(prevProps, prevState);
+        // }
 
     }
 
