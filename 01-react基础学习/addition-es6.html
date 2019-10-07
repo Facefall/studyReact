@@ -11,6 +11,9 @@
         //从es6.js里接受默认导出的东西 名字为abc
         //如果想拿到其他导出数据,解构
         //import abc from './es6.js';
+        //该方法只能在服务器环境下使用
+        //且导出的内容只在当前script作用域中有效
+        //若想使用,可挂载到window对象上
         import  {getDate,title,arr,json} from "./es6.js";
 
         console.log(getDate(),title,arr,json);
