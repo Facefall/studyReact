@@ -39,7 +39,7 @@ class Newsdetails extends Component {
         */
     }
     componentWillUnmount() {
-        this.state = ()=>{      //不会更新state
+        this.setState = () => {      //不会更新state
             return false
         }
 

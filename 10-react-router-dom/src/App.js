@@ -3,8 +3,9 @@ import {
     Route,
     // Router,
     // Link,
+    HashRouter as Router,
     NavLink,
-    BrowserRouter as Router,
+    // BrowserRouter as Router,
     // StaticRouter,
     Switch,
     // HashRouter
