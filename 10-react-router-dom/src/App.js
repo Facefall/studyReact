@@ -12,18 +12,41 @@ import {
     // HashRouter
 } from 'react-router-dom';
 import './static/css/index.css';
-import  "./component/index.css";
+import "./component/index.css";
 
-import Home from "./component/home.jsx";
-import User from "./component/user";
-import News from "./component/news";
-import Not404 from "./component/not404";
+// import Home from "./component/home.jsx";
+// import User from "./component/user";
+// import News from "./component/news";
+// import Not404 from "./component/not404";
 // import Newsdetails from "./component/newsdetails";
+import routers from "./router/index.js";
+
+// import Home from "./component/home";
 
 
 class App extends Component {
+    getData = () => {
+        const arr = [
+            {
+                to: '/',
+                exact: true,
+                con: "Home"
+            },
+            {
+                to: '/news',
+                con: "News"
+            },
+            {
+                to: '/user',
+                con: "User"
+            }
+        ];
+        return arr;
+    };
 
     render() {
+        const data = this.getData();
+
         return (
             /*
             <BrowserRouter>
@@ -73,16 +96,47 @@ class App extends Component {
                         2 动态路由  根据路由传递参数
                         3 localstorage
                     */}
-                    <NavLink  exact activeClassName={'home'} to={'/'}> Home</NavLink>
-                    <NavLink  to={'/news'}> News</NavLink>
-                    <NavLink  to={'/user'}> User</NavLink>
+                    {/*<NavLink  exact activeClassName={'home'} to={'/'}> Home</NavLink>*/}
+                    {/*<NavLink  to={'/news'}> News</NavLink>*/}
+                    {/*<NavLink  to={'/user'}> User</NavLink>*/}
+                    {
+                        data.map((item, index) => {
+                            // return (<NavLink key={index} to={item.to}>{item.con}</NavLink>)
+                            return (<NavLink key={index}
+                                             {...item}>{item.con}</NavLink>)
+                        })
+                    }
                 </div>
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/user' component={User}/>
-                    <Route path='/news' component={News}/>
+                    {/*<Route exact path='/' component={Home}/>*/}
+                    {/*<Route path='/user' component={User}/>*/}
+                    {/*<Route path='/news' component={News}/>*/}
                     {/*<Route path='/newsdetails' component={Newsdetails} />*/}
-                    <Route component={Not404} />
+                    {/*<Route component={Not404} />*/}
+                    {
+                        // routers.map((item,index) => {
+                        //     if(item.exact === true)  return <Route key={index} exact={item.exact} path={item.path} component={item.component} />
+                        //     return <Route key={index} path={item.path} component={item.component} />
+                        //     return <Route key={index} {...item} />
+                    })
+                    }
+                    {/*<Route key={index} path={item.path} component={item.component}></Route>)*/}
+
+                    {
+                        routers.map((item, index) => {
+                            if (item.exact) {
+                                return (<Route exact={item.exact} key={index} path={item.path}
+                                               component={item.component}  />)
+                            }
+                            console.log(item);
+                            return (
+                                <Route key={index} path={item.path} render={(props) => {
+                                    return <item.component {...props} routers={item.children}/>
+                                }}/>);
+                        })
+                    }
+
+
                 </Switch>
             </Router>
         )

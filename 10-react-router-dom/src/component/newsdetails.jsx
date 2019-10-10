@@ -6,17 +6,17 @@ class Newsdetails extends Component {
         test:1
     };
 
-    componentWillMount() {
-        this.onOff = true;
-        if (this.onOff){
-            setTimeout(()=>{
-                this.setState({
-                    test:2
-                })
-            },1000)
-        }
-
-    }
+    // componentWillMount() {
+    //     this.onOff = true;
+    //     if (this.onOff){
+    //         setTimeout(()=>{
+    //             this.setState({
+    //                 test:2
+    //             })
+    //         },1000)
+    //     }
+    //
+    // }
 
     componentDidMount() {
         // this.setState({
@@ -54,7 +54,9 @@ class Newsdetails extends Component {
             <div>
                 news detail
                 <hr/>
-                {id}
+                {
+                    id  || "新闻首页"
+                }
             </div>
         );
     }
