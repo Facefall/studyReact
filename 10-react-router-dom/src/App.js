@@ -3,9 +3,10 @@ import {
     Route,
     // Router,
     // Link,
-    HashRouter as Router,
+    // HashRouter as Router,
+    //hashRouter 不会更新页面
     NavLink,
-    // BrowserRouter as Router,
+    BrowserRouter as Router,
     // StaticRouter,
     Switch,
     // HashRouter
@@ -17,7 +18,7 @@ import Home from "./component/home.jsx";
 import User from "./component/user";
 import News from "./component/news";
 import Not404 from "./component/not404";
-import Newsdetails from "./component/newsdetails";
+// import Newsdetails from "./component/newsdetails";
 
 
 class App extends Component {
@@ -53,8 +54,7 @@ class App extends Component {
             </BrowserRouter>
             * */
             <Router>
-                <div>
-                    {/*<link><div>23</div></link>*/}
+                <div className={'topNav'}>
                     {/*
                     path 是路由参数
                     localhost:3000/
@@ -67,27 +67,20 @@ class App extends Component {
 
 
                 */}
-
                     {/*
                         NavLink 向子组件传值
                         1 get传值
                         2 动态路由  根据路由传递参数
                         3 localstorage
                     */}
-                    <hr/>
-                    <NavLink exact activeClassName={'home'} to={'/'}> Home</NavLink>
-                    <br/>
-                    <NavLink to={'/news'}> News</NavLink>
-                    <br/>
-                    <NavLink to={'/user'}> User</NavLink>
-                    <br/>
-                    <hr/>
+                    <NavLink  exact activeClassName={'home'} to={'/'}> Home</NavLink>
+                    <NavLink  to={'/news'}> News</NavLink>
+                    <NavLink  to={'/user'}> User</NavLink>
                 </div>
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/user' component={User}/>
                     <Route path='/news' component={News}/>
-                    <Route path='/newsdetails/:news_id' component={Newsdetails} />
                     {/*<Route path='/newsdetails' component={Newsdetails} />*/}
                     <Route component={Not404} />
                 </Switch>

@@ -1,3 +1,6 @@
+.root{
+    height: 100vh;
+}
 .active{
     color:red;
     background-color: skyblue;
@@ -5,3 +8,24 @@
 .home{
     color:yellow;
 }
+.news{
+    height: 100vh;
+}
+.navlist{
+    display: flex;
+    justify-content: space-between;
+    height: calc(100% - 150px);
+    background-color: #ddd;
+}
+
+.navlist ol{
+    width: 150px;
+    background-color: skyblue;
+}
+
+.navlist .con{
+    height: 100%;
+    width: calc(100% - 300px);
+    background-color: skyblue;
+}
+

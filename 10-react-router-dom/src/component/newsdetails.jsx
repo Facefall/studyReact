@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import Url from "url";
-
-
+// import Url from "url";
 
 class Newsdetails extends Component {
     state = {
@@ -38,6 +36,7 @@ class Newsdetails extends Component {
 
         */
     }
+
     componentWillUnmount() {
         this.setState = () => {      //不会更新state
             return false
@@ -46,12 +45,11 @@ class Newsdetails extends Component {
     }
 
     render() {
-        const id = Url.parse(this.props.location.search,true).query.id;
+        // const id = Url.parse(this.props.location.search,true).query.id;
         //parse true -> query 得到get键值对
-        // console.log(url);
         // const id = this.props.location.search;
-        // console.log(this.props);
         // console.log(this.props.location);
+        const id = this.props.match.params.id;
         return (
             <div>
                 news detail
