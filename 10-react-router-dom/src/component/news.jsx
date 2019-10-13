@@ -60,11 +60,11 @@ class News extends Component {
                             {
                                 routers.length > 0 && routers.map((item, index) => {
                                     // if (item.exact === true)
-                                        return (<Route key={index} exact={item.exact} path={`${item.path}`} component={item.component}/>)
+                                        return (<Route key={index} exact={item.exact} path={item.path} component={item.component}/>)
 
-                                    // if (item.path === null)
+                                    // if (item.path !== null)
                                     //     return (<Route key={index} path={`${path}/newsdetails/:id`} component={item.component}/>)
-                                    // return <Route key={index} path={`${item.path}`} component={item.component} />
+                                    // return <Route key={index} path={`${path}/newsdetails/:id`} component={item.component} />
                                 })
                             }
                             {/*<Route exact path={`${path}`} component={Newsdetails} />*/}

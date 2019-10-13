@@ -11,6 +11,7 @@ const routers = [
         component:Home
     },
     {
+        exact:false,
         path:'/news',
         component:News,
         children:[
@@ -32,10 +33,12 @@ const routers = [
         ]
     },
     {
+        exact:false,
         path:'/user',
         component:User
     },
     {
+        exact:false,
         component:Not404
     }
 ];
