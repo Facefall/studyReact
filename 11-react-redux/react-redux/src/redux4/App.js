@@ -1,9 +1,22 @@
 import React, {Component} from 'react';
 import './static/css/index.css';
+import {connect} from "react-redux";
 import {addNum,removeAsnyc,removeNum} from "./redux4";
 
+//连接器 装饰器 简化代码
+
+//store.getState
+//store.subScribe
+//store.dispatch
 
 class App extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     console.log(this.props);
+        // this.props.store.subscribe(this.render)
+        // const {store} = this.props;
+        // store.subscribe(App.render);
+    // }
 
 
 
