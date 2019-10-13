@@ -7,8 +7,9 @@ import App from './App.js';
 import './redux4';
 import thunk from "redux-thunk";
 import {createStore,applyMiddleware,compose} from "redux";
-import {reducer,addNum,removeNum,removeAsnyc} from "./redux4";
+import {reducer} from "./redux4";
 import {Provider} from "react-redux";
+
 //高阶组件 负责处理数据的容器组件
 
 
@@ -29,8 +30,7 @@ function render() {
     ReactDOM.render(
         <Provider
             store = {store}>
-            <App
-            />
+            <App />
         </Provider>
         ,
         document.getElementById('root')
