@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {addNum,removeAsnyc,removeNum} from "./redux4";
+import Abc from "./abc.jsx";
 
 //连接器 装饰器 简化代码
 
@@ -44,6 +45,8 @@ class App extends Component {
         return (
             <div>
                 <h1>hello react</h1>
+                <hr/>
+                <Abc/>
                 <hr/>
                 <h2>
                     {
